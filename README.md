@@ -12,7 +12,10 @@ setupIOT('WorkDir')
 # Look at Individual Sessions
 processNEV_IOT()
 
-# Create STIM
+# Create STIM - event-align data
+createSTIM_IOT()
+
+# Create IDX - select relevant conditions contrasts
 createIDX_IOT()
 
 # Visualize grand average of data
