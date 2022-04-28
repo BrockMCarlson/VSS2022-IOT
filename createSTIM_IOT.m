@@ -10,16 +10,20 @@ fullFileName = 'E:\bmcBRFSsessions\211008_B\211008_B_bmcBRFS001';
 
 
 
-%% Pull out all pertinent time-points from all sessions of interest
-% runTuneList, diTP, diCheck, diPT, diV1Lim
+%% findTimePoints
+% from STIM = brfsTP(filelist);
+STIM = findTimePoints(fullFileName);
 
-STIM = brfsTP(filelist);
+
+
+%% alignToPhotoTrigger
 trigger = 'custom';
 [STIM,fails] = diPT_2021(STIM,trigger);
 
-[RESP, win_ms, SDF, sdftm, PSTH, psthtm]= diNeuralDat(STIM,datatype,true);
 
 
 
-%% Pull out the data - time locked to photo-triggered time-points
+%% alignNeuralDatToPhotoDiodeTrigger
 % diNeuralDat
+
+[RESP, win_ms, SDF, sdftm, PSTH, psthtm]= diNeuralDat(STIM,datatype,true);
