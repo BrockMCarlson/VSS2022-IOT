@@ -1,10 +1,5 @@
 function STIM = findTimePoints(fullFileName)
 
-warning('do you mean to use 211008 only??')
-fullFileName = 'E:\bmcBRFSsessions\211008_B\211008_B_bmcBRFS001';
-
-
-% remeber, this reverses the eyes
 okparadigms = {...
     'bmcBRFS'       '.gbmcBRFSgrating_di'};
 
@@ -59,8 +54,8 @@ obs = 0;
     %     13 = photo diode blink        on runing the third scene
     %     24 = task object 1 off       I'm starting to think this indicatess the end of the scene time 
     %     25 = task object 2 on
-    %     26 = task object 2 off
-    %     36 = run scene scene 5 - event code for fix cross OFF
+    %     26 = task object 2 off %% This is a reliable way to identify the end of a full trial event  
+    %     36 = run scene scene 5 - event code for fix cross OFF. Please note that this event code occurs if the monkey does not finish the trial 
     %     96 = good monkey, reward 1
     %     96 = good monkey, reward 2
     %     18
@@ -76,30 +71,10 @@ obs = 0;
     grating = orderfields(grating);
     % check that all is good between NEV and grating text file;
     n = length(grating.trial);
-    [allpass, message] =  checkTrMatch(grating,NEV); % 2021 problems arise here when we don't have the event code sequencing triplets OR ML and BR timestamp misalignment
-    
-    if ~allpass  % BM, 10/14/2021 -- Commenting this check out as a test.
-        allpass
-        message
-        %error('Not all pass')
-        warning('Not all checks passed for checkTrMatch.m');
-    end
 
-    % eye determins object in other eye
-    grating.tiltTwoEyes       = [grating.tilt uCalcTilts0to179(grating.tilt,grating.oridist)];
   
     % sort trials , get TPs
     for t = 1:length(pEvC)
-        
-        if strcmp(fullFileName,'/Volumes/Drobo2/Data/NEUROPHYS/rig021/170724_I/170724_I_mcosinteroc001')
-            if ~exist('ns_header','var')
-                ns_header  = openNSx([fullFileName '.ns6'],'noread');
-            end
-            if ns_header.MetaTags.DataPoints < pEvT{t}(1)
-                continue
-            end
-        end
-
         % Pull out trials where fixation was broken but the full monocular
         % presentation was completed. We can use these trials for their
         % monocular data in the first 800ms. To do this we need to look for
@@ -110,8 +85,7 @@ obs = 0;
         if any(pEvC{t} == 13) && ~any(pEvC{t} == 96) && ((sum(pEvC{t} == 24)) == 2) %2 values of 24 means that we get through the end of the photo diode blink
             obs = obs + 1;
             
-                STIM.('task'){obs,:}  =  paradigm{j};
-                STIM.('filen')(obs,:) = j;
+                STIM.('task'){obs,:}  =  paradigm;
                 STIM.('trl')(obs,:)   = t;
             STIM.('first800')(obs,:)     = true;
             STIM.('fullTrial')(obs,:)  = false;
@@ -155,8 +129,7 @@ obs = 0;
             % pull out the first 800ms of soa
             obs = obs + 1;
 
-                STIM.('task'){obs,:}  =  paradigm{j};
-                STIM.('filen')(obs,:) = j;
+                STIM.('task'){obs,:}  =  paradigm;
                 STIM.('trl')(obs,:)   = t;
             STIM.('first800')(obs,:)     = true; 
             STIM.('fullTrial')(obs,:)  = true;
@@ -194,8 +167,7 @@ obs = 0;
             obs = obs + 1;
 
 
-                STIM.('task'){obs,:}  =  paradigm{j};
-                STIM.('filen')(obs,:) = j;
+                STIM.('task'){obs,:}  =  paradigm;
                 STIM.('trl')(obs,:)   = t;
             STIM.('first800')(obs,:)  = false; 
             STIM.('fullTrial')(obs,:)  = true;
@@ -237,9 +209,7 @@ obs = 0;
 
 
         
-        if any(pEvC{t} == 96) && ~any(pEvC{t} == 26)
-            error('strange case - figure out what happened on the Monkey Logic side here')
-        end
+
         
 
 
@@ -253,8 +223,6 @@ obs = 0;
     
 
     % add Filelist
-    STIM.filelist  = filelist;
-    STIM.filetime  = filetime;
     STIM.paradigm  = paradigm;
     STIM.fpath     = fpath;
     STIM.runtime   = now;
