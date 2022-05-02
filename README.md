@@ -7,7 +7,7 @@ This library is used to generate the figures on Brock Carlson's poster at the VS
 ## Usage
 
 ```matlab
-setupIOT('WorkDir')
+setup_IOT('WorkDir')
 
 # Look at Individual Sessions
 processNEV_IOT()
@@ -21,6 +21,10 @@ createIDX_IOT()
 # Visualize grand average of data
 visWithGramm_IOT()
 ```
+
+## Instructions
+The intention is that setupIOT is run at the start of each script so that
+individual directories on each local machine can be setup
 
 ## Contributing
 For collaboration requests please contact brock.m.carlson@vanderbilt.edu
