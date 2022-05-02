@@ -84,64 +84,7 @@ for i = 1:length(STIM.trl)
         SPK   = cell(nel,1);
         empty = false(size(SPK)); 
         
-        switch datatype
-            case 'auto'
-                clear autofile NEV nev_labels nix SPK
-                autofile = [autodir BRdatafile '.ppnev'];
-                if ~exist(autofile,'file')
-                    error('no .ppnev for %s',BRdatafile)
-                end
-                load(autofile,'-MAT','ppNEV');
-                NEV = ppNEV; clear ppNEV;
-                nev_labels  = cellfun(@(x) x(1:4)',{NEV.ElectrodesInfo.ElectrodeLabel},'UniformOutput',0);
-                [~,~,ib]=intersect(el_labels,nev_labels,'stable');
-                for e=1:length(ib)
-                    SPK{e,1} = NEV.Data.Spikes.TimeStamp(NEV.Data.Spikes.Electrode == ib(e));
-                end
-            case 'nev'
-                clear autofile NEV nev_labels nix SPK
-                NEV = openNEV([filename '.nev']);
-                nev_labels  = cellfun(@(x) x(1:4)',{NEV.ElectrodesInfo.ElectrodeLabel},'UniformOutput',0);
-                [~,~,ib]=intersect(el_labels,nev_labels,'stable');
-                for e=1:length(ib)
-                    SPK{e,1} = double(NEV.Data.Spikes.TimeStamp(NEV.Data.Spikes.Electrode == ib(e)));
-                end
-            case 'kls'
-                % load KS data, never concatenated
-                % diClusters already screened and assigned units
-                for e=1:nel
-                    filematch = STIM.units(e).fileclust(:,1) == filen;   % changed 2 to 1 - BM 6/21/20
-                    if filematch
-                        break
-                    end
-                end
-                if filematch
-                    load([sortdir BRdatafile '/ss.mat'],'ss');
-                    for e=1:nel
-                        idx = find(STIM.units(e).fileclust(:,1) == filen); % changed 2 to 1 - BM 6/21/20
-                        if isempty(idx)
-                            empty(e) = true; 
-                        else
-                            clust = STIM.units(e).fileclust(idx,2);  % changed 1 to 2 - BM 6/21/20
-                            SPK{e,1} = ss.spikeTimes(ismember(ss.spikeClusters,clust));
-                        end
-                    end
-                end
-          
-                
-            case {'csd','lfp'}
-                clear ns2file ns_header
-                ns2file    = [filename '.ns2'];
-                ns_header  = openNSx(ns2file,'noread');
-                
-                clear elb idx e
-                elb = cellfun(@(x) (x(1:4)),{ns_header.ElectrodesInfo.Label},'UniformOutput',0);
-                idx = zeros(1,length(el_labels));
-                for e = 1:length(el_labels)
-                    idx(e) = find(strcmp(elb,el_labels{e}));
-                end
-                
-            case 'mua'
+
                 clear ns6file ns_header
                 ns6file    = [filename '.ns6'];
                 ns_header  = openNSx(ns6file,'noread');
@@ -152,9 +95,7 @@ for i = 1:length(STIM.trl)
                 for e = 1:length(el_labels)
                     idx(e) = find(strcmp(elb,el_labels{e}));
                 end
-        end
-    end
-    
+ 
    
     
     % get TP and rwin

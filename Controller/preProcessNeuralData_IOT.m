@@ -22,7 +22,7 @@ STIM.fullFileName = fullFileName;
 %   SUB-FUNCTIONS TO BE ON THE MATLAB PATH
 trigger = 'custom';
 
-% % % % [data, MLConfig, TrialRecord, filename] = mlread(fullFileName);
+[data, MLConfig, TrialRecord, filename] = mlread(fullFileName);
 % % % %     PixelsPerDegree = MLConfig.PixelsPerDegree;
 % % % %     ScreenResolution = MLConfig.Resolution;
 % % % %     BehavioralCodes = TrialRecord.TaskInfo.BehavioralCodes;
@@ -37,9 +37,11 @@ STIM.tp_pt = newTP;
 
 
 %% trialAlignNeuralData
-% diNeuralDat
- 
-[RESP, win_ms, SDF, sdftm, PSTH, psthtm]= trialAlignData_IOT(STIM,'mua',true);
+% diNeuralDat has turned into trialAlignData_IOT
+    %You need to obtain STIM.ellabels. This is generated in diV1Lim code
+    %(something that is an antiquated function form ephys analysis). I need
+    %to figure out how to openNEV for el_labels
+[RESP, win_ms, SDF, sdftm, PSTH, psthtm] = trialAlignData_IOT(STIM,'mua',true);
 
 
 
