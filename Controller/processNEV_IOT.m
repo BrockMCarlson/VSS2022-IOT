@@ -1,4 +1,5 @@
 %  processNEV_IOT()
+
 clear
 setup_IOT('BrockWork')
 
@@ -28,7 +29,6 @@ for i = 1:size(FileInformation,1)
     singleFileInfo = FileInformation(i,:);
     plotCSDandPSDfromNEV(singleFileInfo)
 end
-
 
 
 

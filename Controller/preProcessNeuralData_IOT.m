@@ -55,6 +55,7 @@ trialAlignedMUAPacket.psthtm = psthtm;
 
 %% Test - plot one line from your data (this sould access Vies)
 % This is the first time we have seen BRFS photo-diode triggered data
+figure
 holder = SDF(15,:,:);
 holder2 = squeeze(holder);
 holder3 = nanmean(holder2,2);
@@ -67,4 +68,4 @@ xlim([100 800])
 %   Table A - RESP trial-by-trial values for JASP WithinSubjectANOVA - raincloud plots!!
 %   Table B - Continuous trial-bytrial values to average into SDFs using Gramm
 
-IDX = createIDX_IOT();
+% IDX = createIDX_IOT();
