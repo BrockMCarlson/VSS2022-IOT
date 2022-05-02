@@ -39,10 +39,15 @@ end
 bin_ms    = 10;
 nwin      = size(win_ms,1);
 
-el_labels = STIM.el_labels;
 
-nel = length(STIM.depths);
-
+nel = 32;
+warning('nel hard-coded to 32')
+clear j
+el_labels = {'eA01','eA02','eA03','eA04','eA05','eA06','eA07','eA08',...
+    'eA09','eA10','eA11','eA12','eA13','eA14','eA15','eA16','eA17',...
+    'eA18','eA19','eA20','eA21','eA22','eA23','eA24','eA25','eA26',...
+    'eA27','eA28','eA29','eA30','eA31','eA32'};
+warning('el_labels hard-coded')
 
 
 %% 2.  Preallocate nans for all datatypes (sdftm and triggering is setup)
@@ -73,11 +78,10 @@ nel = length(STIM.depths);
 % Iterate trials, loading files as you go
 for i = 1:length(STIM.trl)
     
-    if i == 1 || STIM.filen(i) ~= filen 
+    if i == 1 
         
-        clear filen filename BRdatafile
-        filen = STIM.filen(i);
-        filename  = STIM.filelist{filen};
+        clear  filename BRdatafile
+        filename  = STIM.fullFileName;
         [~,BRdatafile,~] = fileparts(filename);
         
         % setup SPK cell array
@@ -91,11 +95,11 @@ for i = 1:length(STIM.trl)
                 
                 clear elb idx e
                 elb = cellfun(@(x) (x(1:4)),{ns_header.ElectrodesInfo.Label},'UniformOutput',0);
-                idx = zeros(1,length(el_labels));
-                for e = 1:length(el_labels)
+                idx = zeros(1,nel);
+                for e = 1:nel
                     idx(e) = find(strcmp(elb,el_labels{e}));
                 end
- 
+    end
    
     
     % get TP and rwin
@@ -156,7 +160,7 @@ for i = 1:length(STIM.trl)
     SDF(:,1:length(mua),i) = mua';
      
 
-            
+             
 end % done iterating trials
 
 %% 4. Cut/trim so that everything lines up.

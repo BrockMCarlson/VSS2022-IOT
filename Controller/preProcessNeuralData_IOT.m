@@ -41,7 +41,9 @@ STIM.tp_pt = newTP;
     %You need to obtain STIM.ellabels. This is generated in diV1Lim code
     %(something that is an antiquated function form ephys analysis). I need
     %to figure out how to openNEV for el_labels
-[RESP, win_ms, SDF, sdftm, PSTH, psthtm] = trialAlignData_IOT(STIM,'mua',true);
+        win_ms    = [50 100; 150 250; 50 250; -50 0]; % ms;
+
+[RESP, win_ms, SDF, sdftm, PSTH, psthtm] = trialAlignData_IOT(STIM,'mua',true,win_ms);
 
 
 
