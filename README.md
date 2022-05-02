@@ -10,8 +10,7 @@ This library is used to generate the figures on Brock Carlson's poster at the VS
 # Look at Individual Sessions
 processNEV_IOT()
 
-# Create STIM, RESP, and SDF matlab outputs 
-#   & format for Gramm
+# Create STIM, RESP, and SDF matlab outputs & format for Gramm
 preProcessNeuralData_IOT()
 
 # Plot desired comparisons with gramm
