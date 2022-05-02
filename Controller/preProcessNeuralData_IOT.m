@@ -45,7 +45,22 @@ STIM.tp_pt = newTP;
 
 [RESP, win_ms, SDF, sdftm, PSTH, psthtm] = trialAlignData_IOT(STIM,'mua',true,win_ms);
 
+% Save your output
+trialAlignedMUAPacket.RESP = RESP;
+trialAlignedMUAPacket.win_ms = win_ms;
+trialAlignedMUAPacket.SDF = SDF;
+trialAlignedMUAPacket.sdftm = sdftm;
+trialAlignedMUAPacket.PSTH = PSTH;
+trialAlignedMUAPacket.psthtm = psthtm;
 
+%% Test - plot one line from your data (this sould access Vies)
+% This is the first time we have seen BRFS photo-diode triggered data
+holder = SDF(15,:,:);
+holder2 = squeeze(holder);
+holder3 = nanmean(holder2,2);
+plot(holder3)
+vline(150)
+xlim([100 800])
 
 %% Create IDX
 % Make an IDX Structure that primarily houses 2 tables.
