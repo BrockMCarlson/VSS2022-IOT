@@ -15,14 +15,15 @@ fullFileName = 'E:\bmcBRFSsessions\211008_B\211008_B_bmcBRFS001';
 % from STIM = brfsTP(filelist);
 STIM = findTimePoints(fullFileName);
 STIM.fullFileName = fullFileName;
-
+STIM.localFileName = fullFileName(end-18:end);
 
 %% alignToPhotoTrigger
 %   NOTE YOU MUST HAVE THE NIMH MONKEY LOGIC APP OPEN FOR THESE
 %   SUB-FUNCTIONS TO BE ON THE MATLAB PATH
 trigger = 'custom';
 
-[data, MLConfig, TrialRecord, filename] = mlread(fullFileName);
+bhvFile = strcat(fullFileName,'.bhv2');
+[data, MLConfig, TrialRecord, filename] = mlread(bhvFile);
 % % % %     PixelsPerDegree = MLConfig.PixelsPerDegree;
 % % % %     ScreenResolution = MLConfig.Resolution;
 % % % %     BehavioralCodes = TrialRecord.TaskInfo.BehavioralCodes;
@@ -45,13 +46,18 @@ STIM.tp_pt = newTP;
 
 [RESP, win_ms, SDF, sdftm, PSTH, psthtm] = trialAlignData_IOT(STIM,'mua',true,win_ms);
 
-% Save your output
+% Save your output -- approx 225 MB
 trialAlignedMUAPacket.RESP = RESP;
 trialAlignedMUAPacket.win_ms = win_ms;
 trialAlignedMUAPacket.SDF = SDF;
 trialAlignedMUAPacket.sdftm = sdftm;
 trialAlignedMUAPacket.PSTH = PSTH;
 trialAlignedMUAPacket.psthtm = psthtm;
+
+global OUTDIR_FD
+cd(OUTDIR_FD)
+saveFileName = strcat(OUTDIR_FD,STIM.localFileName ,'_FD.mat');
+save(saveFileName,"trialAlignedMUAPacket");
 
 %% Test - plot one line from your data (this sould access Vies)
 % This is the first time we have seen BRFS photo-diode triggered data
@@ -63,9 +69,4 @@ plot(holder3)
 vline(150)
 xlim([100 800])
 
-%% Create IDX
-% Make an IDX Structure that primarily houses 2 tables.
-%   Table A - RESP trial-by-trial values for JASP WithinSubjectANOVA - raincloud plots!!
-%   Table B - Continuous trial-bytrial values to average into SDFs using Gramm
 
-% IDX = createIDX_IOT();

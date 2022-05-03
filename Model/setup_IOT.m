@@ -1,30 +1,22 @@
 function CODEDIR = setup_IOT(user)
+% RIGDIR        - where the base data is stored
+% CODEDIR       - where your GitHub Repo is stored:
+%                   this function also CDs into this directrory
+% OUTDIR_FD     - FD = "Formatted Data"
+%                   this is where your preProcessed / organized data goes
+% OUTDIR_PLOT   - where your figures end up
 
-% helper function 
-% MAC, Feb 2020
-global  RIGDIR AUTODIR SORTDIR ALIGNDIR IDXDIR STIMDIR  CODEDIR OUTDIR  
- 
+
+global RIGDIR CODEDIR OUTDIR_FD OUTDIR_PLOT
 
     switch user
-        
         case {'BrockWork'}
-            RIGDIR   = 'E:\bmcBRFSsessions\';
-            CODEDIR  = 'C:\Users\Brock\Documents\MATLAB\GitHub\VSS2022-IOT\';
-            IDXDIR   = 'T:\Brock - backups\Backup - WD harddrive - 220311\5 diIDX dir\';
-            STIMDIR  = 'T:\Brock - backups\Backup - WD harddrive - 220311\2 all LFP STIM\';
-            OUTDIR   = 'T:\Brock - backups\Backup - WD harddrive - 220311\6 Plot Dir\1.5 Gramm\outputs from 1.5 master code\NS NPS outputs\';
-               
-            cd(CODEDIR)
-      
-    
-        case {'BrockHome'}
-            CODEDIR  = 'C:____________________\GitHub\VSS2022-IOT';
-
-                       
-            cd(CODEDIR)
-     
-           
+            RIGDIR      = 'E:\bmcBRFSsessions\';
+            CODEDIR     = 'C:\Users\Brock\Documents\MATLAB\GitHub\VSS2022-IOT\';
+            OUTDIR_FD   = 'E:\formattedDataOutputs\';
+            OUTDIR_PLOT = 'E:\plotData\';
+            
     end
       
-        
+cd(CODEDIR)
 end
