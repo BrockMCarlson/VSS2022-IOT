@@ -27,6 +27,7 @@ load(formattedFileName)
 
 %% obtainConditionsOfInterest()
 % The goal of this file is to generate an IDX output
+global trialalignedMUAPacket
 IDX = obtainConditionsOfInterest(trialAlignedMUAPacket);
 
 

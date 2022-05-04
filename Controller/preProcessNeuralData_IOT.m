@@ -53,6 +53,7 @@ trialAlignedMUAPacket.SDF = SDF;
 trialAlignedMUAPacket.sdftm = sdftm;
 trialAlignedMUAPacket.PSTH = PSTH;
 trialAlignedMUAPacket.psthtm = psthtm;
+trialAlignedMUAPacket.STIM = STIM;
 
 global OUTDIR_FD
 cd(OUTDIR_FD)
@@ -62,11 +63,14 @@ save(saveFileName,"trialAlignedMUAPacket");
 %% Test - plot one line from your data (this sould access Vies)
 % This is the first time we have seen BRFS photo-diode triggered data
 figure
-holder = SDF(15,:,:);
-holder2 = squeeze(holder);
-holder3 = nanmean(holder2,2);
-plot(holder3)
-vline(150)
-xlim([100 800])
+for sp = 1:10
+    subplot(10,1,sp)
+    holder = SDF(sp,:,:);
+    holder2 = squeeze(holder);
+    holder3 = nanmean(holder2,2);
+    plot(holder3)
+    vline(150)
+    xlim([100 800])
+end
 
 
