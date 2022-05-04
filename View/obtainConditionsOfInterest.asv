@@ -12,6 +12,9 @@ sdftm   = trialAlignedMUAPacket.sdftm;
 STIM    = trialAlignedMUAPacket.STIM;
 clear trialAlignedMUAPacket 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 if isequal(win_ms(3,:),[50 250])
     respDimension = 3;
 elseif isequal(win_ms(4,:),[50 250])
@@ -116,6 +119,8 @@ IDX.SDF_avg         = SDF_avg;
 IDX.RESP_avg        = RESP_avg;
 IDX.trls            = trls;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+IDX = [];
 end
