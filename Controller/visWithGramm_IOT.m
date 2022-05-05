@@ -35,20 +35,21 @@ quickAndDirtyMatlabPlot(IDX)
 
 
 %% formatForGrammInput
-forGramm = formatForGrammInput(IDX);
+clear forGramm
+for i = 1:32
+    forGramm= formatForGrammInput(IDX,i);
+    eachUnitForGramm{i} = forGramm; 
+end
 
 
 
 %% plotStdIOTwithGramm
-plotStdIOTwithGramm(IDX)
-
-
-
-
-
-
-
-
+sdftm = IDX.sdftmCrop;
+clear i
+for i = 1:32
+    inputUnitTableToGramm = eachUnitForGramm{i};
+    plotStdIOTwithGramm(inputUnitTableToGramm,sdftm)
+end
 
 
 

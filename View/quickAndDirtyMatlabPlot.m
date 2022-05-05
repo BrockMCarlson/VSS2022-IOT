@@ -4,19 +4,26 @@ conditions = IDX.conditions;
 SDF_avg = IDX.SDF_avg;
 exUnit = 15;
 
+%smoothData
+clear SDF_smoothed
+for sd = 1:8
+    SDF_smoothed{sd,1} = smoothdata(IDX.SDF_avg{sd},2);
+end
+
+
 % Create a more usable table
 % If the inputs are workspace variables, then table assigns their names as 
 % the variable names in the output table.
 
 %Variable to put into this table
-monocular_PO_LE     =  IDX.SDF_avg{1,1}; 
-IOT_PO_LE           =  IDX.SDF_avg{2,1};  
-monocular_PO_RE     =  IDX.SDF_avg{3,1}; 
-IOT_PO_RE           =  IDX.SDF_avg{4,1}; 
-monocular_NPO_LE    =  IDX.SDF_avg{5,1}; 
-IOT_NPO_LE          =  IDX.SDF_avg{6,1}; 
-monocular_NPO_RE    =  IDX.SDF_avg{7,1}; 
-IOT_NPO_RE          =  IDX.SDF_avg{8,1}; 
+monocular_PO_LE     =  SDF_smoothed{1,1}; 
+IOT_PO_LE           =  SDF_smoothed{2,1};  
+monocular_PO_RE     =  SDF_smoothed{3,1}; 
+IOT_PO_RE           =  SDF_smoothed{4,1}; 
+monocular_NPO_LE    =  SDF_smoothed{5,1}; 
+IOT_NPO_LE          =  SDF_smoothed{6,1}; 
+monocular_NPO_RE    =  SDF_smoothed{7,1}; 
+IOT_NPO_RE          =  SDF_smoothed{8,1}; 
 
 sorted = table(monocular_PO_LE,...
     IOT_PO_LE,...  
@@ -27,7 +34,6 @@ IOT_NPO_LE,...
 monocular_NPO_RE,...
 IOT_NPO_RE);
 
-close all
 for i = 1:32 % contacts
     figure
     sgtitle(strcat('IDX Plot Chan Number__',string(i)))
@@ -62,7 +68,6 @@ for i = 1:32 % contacts
 
 end
 
-close all
 clear i
 figure
 tiledlayout('flow')

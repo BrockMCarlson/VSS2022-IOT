@@ -12,13 +12,6 @@ sdftm   = trialAlignedMUAPacket.sdftm;
 STIM    = trialAlignedMUAPacket.STIM;
 clear trialAlignedMUAPacket 
 
-if isequal(win_ms(3,:),[50 250])
-    respDimension = 3;
-elseif isequal(win_ms(4,:),[50 250])
-    respDimension = 4;
-else
-    error('RESP dimension issue')
-end
 
 %% Crop SDF to .8 sec
 tpFor800 = find(sdftm == .8);
@@ -122,7 +115,7 @@ IDX.SDF_avg         = SDF_avg;
 IDX.RESP_avg        = RESP_avg;
 IDX.trls            = trls;
 IDX.sdftmCrop       = sdftmCrop;
-
+IDX.win_ms          = win_ms;
 
 
 end
