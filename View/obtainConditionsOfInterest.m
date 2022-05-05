@@ -20,10 +20,14 @@ else
     error('RESP dimension issue')
 end
 
-        
-%% baseline correct SDF
+%% Crop SDF to .8 sec
+tpFor800 = find(sdftm == .8);
+SDFcrop = SDF(:,1:tpFor800,:);
+sdftmCrop = sdftm(1:tpFor800);
+
+%% baseline correct values
 blAvg = nanmean(RESP(:,4,:),3); %the average bl firing rate for each contact
-blSubSDF = SDF - blAvg;
+blSubSDF = SDFcrop - blAvg;
 blSubRESP = RESP(:,1:3,:) - blAvg;
 
 
@@ -112,9 +116,12 @@ IDX.CondTrials = CondTrials;
 IDX.conditions        = conditions;
 IDX.CondTrialNum     = CondTrialNum;  
 IDX.trlsLogical       = trlsLogical;
+IDX.condSelectSDF   = condSelectSDF;
+IDX.condSelectRESP  = condSelectRESP;
 IDX.SDF_avg         = SDF_avg;
 IDX.RESP_avg        = RESP_avg;
 IDX.trls            = trls;
+IDX.sdftmCrop       = sdftmCrop;
 
 
 

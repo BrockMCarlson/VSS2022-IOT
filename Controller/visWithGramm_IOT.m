@@ -30,17 +30,17 @@ load(formattedFileName)
 IDX = obtainConditionsOfInterest(trialAlignedMUAPacket);
 
 
-
+%% Oh man gramm is frustrating. Can I just plot this in matlab?
+quickAndDirtyMatlabPlot(IDX)
 
 
 %% formatForGrammInput
-
-
+forGramm = formatForGrammInput(IDX);
 
 
 
 %% plotStdIOTwithGramm
-
+plotStdIOTwithGramm(IDX)
 
 
 
