@@ -1,4 +1,4 @@
-function forGramm = formatForGrammInput(IDX,exUnit)
+function forGramm = formatForGrammInput(IDX,depths)
 %% Format of forGramm output variable
 % The desired output here is to make a (n x 4) cell array where n is the
 % number of trials. In the example day, this is 205 trials with monoc or
@@ -9,23 +9,37 @@ function forGramm = formatForGrammInput(IDX,exUnit)
 %   3. RESP_transient: RESP(1)
 %   4. RESP_sustained: RESP(2)
 
-% A note of complication here... You have to do this for each indiviual
-% electrode contact
 
 %% Lets do some intense cognitive work
-count = 0;
-clear trlLabel SDF_trials RESP_trans RESP_sustained
-for i = 1:8
-    for j = 1:IDX.CondTrialNum(i)
-        count = count+1;
-        trlLabel{count,:}   = IDX.conditions{i};
-        SDF_trials{count,:} = IDX.condSelectSDF{1,i}(exUnit,:,j);  
-        RESP_trans{count,:} = IDX.condSelectRESP{1,i}(exUnit,1,j);  
-        RESP_sustained{count,:} = IDX.condSelectRESP{1,i}(exUnit,2,j);  
+for d = 1:32
+    if ismember(d,depths.upperBin)
+        IDX.depthLabel(d) = 'U'; %U for upper
+    elseif ismember(d,depths.middleBin)
+        IDX.depthLabel(d) = 'M'; %M for middle
+    elseif ismember(d,depths.lowerBin)
+        IDX.depthLabel(d) = 'L'; %L for Lower
+    else 
+        IDX.depthLabel(d) = 'O'; % O for "out"
     end
 end
 
-forGramm = table(trlLabel, SDF_trials,RESP_trans,RESP_sustained);
+%% the table loop
+count = 0;
+clear trlLabel SDF_trials RESP_trans RESP_sustained
+for exUnit = 1:32
+    for i = 1:8
+        for j = 1:IDX.CondTrialNum(i)
+            count = count+1;
+            trlLabel{count,:}       = IDX.conditions{i};
+            depthLabel{count,:}     = IDX.depthLabel(exUnit);
+            SDF_trials{count,:}     = IDX.condSelectSDF{1,i}(exUnit,:,j);  
+            RESP_trans{count,:}     = IDX.condSelectRESP{1,i}(exUnit,1,j);  
+            RESP_sustained{count,:} = IDX.condSelectRESP{1,i}(exUnit,2,j);  
+        end
+    end
+end
+
+forGramm = table(trlLabel,depthLabel, SDF_trials,RESP_trans,RESP_sustained);
 
 
 end

@@ -1,36 +1,36 @@
-function plotStdIOTwithGramm(inputUnitTableToGramm,sdftm)
+function plotStdIOTwithGramm(forGramm,sdftm)
 
 
 %% Gramm plots for vis repeated trajectories
 clear g
+g(1,1)=gramm('x',sdftm,'y',forGramm.SDF_trials,'color',forGramm.trlLabel,...
+    'subset',...
+    strcmp(forGramm.trlLabel, 'monocular_PO_RE') |...
+    strcmp(forGramm.trlLabel, 'IOT_PO_RE'));
+g(2,1)=gramm('x',sdftm,'y',forGramm.SDF_trials,'color',forGramm.trlLabel,...
+    'subset',...
+    ((strcmp(forGramm.trlLabel, 'monocular_PO_RE') | strcmp(forGramm.trlLabel, 'IOT_PO_RE')) & ...
+    strcmp(forGramm.depthLabel, 'U')));
+g(3,1)=gramm('x',sdftm,'y',forGramm.SDF_trials,'color',forGramm.trlLabel,...
+    'subset',...
+    ((strcmp(forGramm.trlLabel, 'monocular_PO_RE') | strcmp(forGramm.trlLabel, 'IOT_PO_RE')) & ...
+    strcmp(forGramm.depthLabel, 'M')));
+g(4,1)=gramm('x',sdftm,'y',forGramm.SDF_trials,'color',forGramm.trlLabel,...
+    'subset',...
+    ((strcmp(forGramm.trlLabel, 'monocular_PO_RE') | strcmp(forGramm.trlLabel, 'IOT_PO_RE')) & ...
+    strcmp(forGramm.depthLabel, 'L')));
 
-g(1,1)=gramm('x',sdftm,'y',inputUnitTableToGramm.SDF_trials,'color',inputUnitTableToGramm.trlLabel,...
-    'subset',strcmp(inputUnitTableToGramm.trlLabel, 'Monocular_PO_RE') |...
-    strcmp(inputUnitTableToGramm.trlLabel, 'IOT_PO_RE'));
-% 
-% g(1,2)=copy(g(1));
-% g(2,1)=copy(g(1));
-% g(2,2)=copy(g(1));
-% 
-% g(1,1).geom_point();
-% g(1,1).set_title('geom_point()');
-% 
-% g(1,2).geom_line();
-% g(1,2).set_title('geom_line()');
-% 
-% g(2,1).stat_smooth();
-% g(2,1).set_point_options('base_size',3);
-% g(2,1).set_title('stat_smooth()');
 
 
 g(1,1).stat_summary();
-% g(2,2).set_title('stat_summary()');
-% g.axe_property('YLim',[-10 50]);
+g(2,1).stat_summary();
+g(3,1).stat_summary();
+g(4,1).stat_summary();
+g.axe_property('YLim',[-10 25]);
+g.axe_property('XLim',[-.15 .5]);
 
 
-g.set_title('Visualization of repeated trajectories ');
 
-figure('Position',[100 100 800 550]);
 g.draw();
 
     
@@ -44,7 +44,7 @@ end
 % % %%%%%%%%%%%%%%%%%%%
 % % clear g
 % % 
-% % g(1,1)=gramm('x',sdftm,'y',inputUnitTableToGramm.SDF_trials,'color',inputUnitTableToGramm.trlLabel);
+% % g(1,1)=gramm('x',sdftm,'y',plotStdIOTwithGramm.SDF_trials,'color',plotStdIOTwithGramm.trlLabel);
 % % % % g.axe_property('XLim',[-.050 .5]);
 % % % % g.axe_property('YLim',[0 200]);
 % % % % g.geom_vline('xintercept',0)

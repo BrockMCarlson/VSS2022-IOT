@@ -29,32 +29,31 @@ load(formattedFileName)
 % The goal of this file is to generate an IDX output
 IDX = obtainConditionsOfInterest(trialAlignedMUAPacket);
 
+% % %% Oh man gramm is frustrating. Can I just plot this in matlab?
+% % quickAndDirtyMatlabPlot(IDX)
 
-%% Oh man gramm is frustrating. Can I just plot this in matlab?
-quickAndDirtyMatlabPlot(IDX)
 
+%% Depth assignemnt
+workbookFile = 'C:\Users\Brock\Dropbox\VSS 2022\laminarBoundaryCalculations.xlsx';
+laminarBoundaryCalculations = importDepths(workbookFile);
+depths.upperBin = [laminarBoundaryCalculations.UpperTop:1:laminarBoundaryCalculations.UpperBtm];
+depths.middleBin = [laminarBoundaryCalculations.MiddleTop:1:laminarBoundaryCalculations.MiddleBtm];
+depths.lowerBin = [laminarBoundaryCalculations.LowerTop:1:laminarBoundaryCalculations.LowerBtm];
 
 %% formatForGrammInput
 clear forGramm
-for i = 1:32
-    forGramm= formatForGrammInput(IDX,i);
-    eachUnitForGramm{i} = forGramm; 
-end
+forGramm= formatForGrammInput(IDX,depths);
 
 
 
 %% plotStdIOTwithGramm
 sdftm = IDX.sdftmCrop;
-clear i
-for i = 1:32
-    inputUnitTableToGramm = eachUnitForGramm{i};
-    plotStdIOTwithGramm(inputUnitTableToGramm,sdftm)
-end
+plotStdIOTwithGramm(forGramm,sdftm)
 
 
 
 
-% Condition codes:
+%% Condition codes:
 % 1     'Simult. Dioptic. PO',...
 % 2     'Simult. Dioptic. NPO',...
 % 3     'Simult. Dichoptic. PO LeftEye - NPO RightEye',...
