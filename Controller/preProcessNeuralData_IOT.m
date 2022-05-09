@@ -1,7 +1,7 @@
 %% preProcessNeuralData_IOT
 % Desired output is an IDX matrix
 clear
-setup_IOT('BrockWork')
+setup_IOT('BrockHome')
 
 %% Setup File(s) to read
 global RIGDIR

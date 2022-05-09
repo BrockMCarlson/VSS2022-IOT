@@ -17,7 +17,7 @@ close all
 sessionOfInterest = '211008_B_bmcBRFS001';
 
 %% Load in Data
-setup_IOT('BrockWork')
+setup_IOT('BrockHome')
 global OUTDIR_FD
 cd(OUTDIR_FD)
 formattedFileName = strcat(sessionOfInterest,'_FD.mat');
@@ -34,7 +34,9 @@ IDX = obtainConditionsOfInterest(trialAlignedMUAPacket);
 
 
 %% Depth assignemnt
-workbookFile = 'C:\Users\Brock\Dropbox\VSS 2022\laminarBoundaryCalculations.xlsx';
+global OUTDIR_FD
+cd(OUTDIR_FD)
+workbookFile = strcat(OUTDIR_FD,'laminarBoundaryCalculations.xlsx');
 laminarBoundaryCalculations = importDepths(workbookFile);
 depths.upperBin = [laminarBoundaryCalculations.UpperTop:1:laminarBoundaryCalculations.UpperBtm];
 depths.middleBin = [laminarBoundaryCalculations.MiddleTop:1:laminarBoundaryCalculations.MiddleBtm];
@@ -49,6 +51,7 @@ forGramm= formatForGrammInput(IDX,depths);
 %% plotStdIOTwithGramm
 sdftm = IDX.sdftmCrop;
 plotStdIOTwithGramm(forGramm,sdftm)
+ plotStdIOTwithGramm_LE(forGramm,sdftm)
 
 
 

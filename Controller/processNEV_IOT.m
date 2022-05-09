@@ -1,7 +1,8 @@
 %  processNEV_IOT()
 
 clear
-setup_IOT('BrockWork')
+close all
+setup_IOT('BrockHome')
 
 %% Plot CSD and PSD with NEV 
 % no .bhv file required
@@ -31,37 +32,6 @@ for i = 1:size(FileInformation,1)
 end
 
 
-
-
-% {'211008',... 
-% '211009',...
-% '211012',...
-% '211025',...
-% '211027',...
-% '211102',...
-% '211103',...
-% '211105',...
-% '211208',...
-% '211210',...
-% '211213',...
-% '211217'}'
-
-
-
-
-
-
-
-
-
-
-
-
-
-%  processNEV_IOT() - when you want to process all evps
-clear
-setup_IOT('BrockWork')
-
 %% Plot CSD and PSD with NEV 
 % no .bhv file required
 % Combined from analyEVP.m and analyPSDdepth_redo.m in MLAnalysisOnline31
@@ -89,3 +59,34 @@ for i = 1:size(FileInformation,1)
     plotCSDandPSDfromNEV(singleFileInfo)
 end
 
+%% Save all the figs
+global OUTDIR_PLOT  
+cd(OUTDIR_PLOT)
+figNameList = {'evp4','evp3','evp2','evp1','brfs'};
+
+FolderName = strcat(OUTDIR_PLOT,'figsFrom-processNEV_IOT\');   % Your destination folder
+FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
+for iFig = 1:length(FigList)
+  FigHandle = FigList(iFig);
+  FigName   = figNameList{iFig};
+  savefig(FigHandle, strcat(FolderName, FigName, '.fig'));
+  saveas(FigHandle, strcat(FolderName, FigName, '.svg'));
+
+end
+
+
+
+%% Some notes for later
+
+% {'211008',... 
+% '211009',...
+% '211012',...
+% '211025',...
+% '211027',...
+% '211102',...
+% '211103',...
+% '211105',...
+% '211208',...
+% '211210',...
+% '211213',...
+% '211217'}'

@@ -15,8 +15,20 @@ global RIGDIR CODEDIR OUTDIR_FD OUTDIR_PLOT
             CODEDIR     = 'C:\Users\Brock\Documents\MATLAB\GitHub\VSS2022-IOT\';
             OUTDIR_FD   = 'E:\formattedDataOutputs\';
             OUTDIR_PLOT = 'E:\plotData\';
-            
+
+        case {'BrockHome'}
+            RIGDIR      = 'E:\bmcBRFSsessions\';
+            CODEDIR     = 'C:\Users\Brock Carlson\Documents\GitHub\VSS2022-IOT\';
+            OUTDIR_FD   = 'E:\formattedDataOutputs\';
+            OUTDIR_PLOT = 'E:\plotData\';
+
     end
       
 cd(CODEDIR)
 end
+
+
+% cd(RIGDIR)
+% cd(CODEDIR)
+% cd(OUTDIR_FD)
+% cd(OUTDIR_PLOT)
