@@ -1,4 +1,4 @@
-function CODEDIR = setup_IOT(user)
+function [RIGDIR, CODEDIR, OUTDIR_FD, OUTDIR_PLOT] = setup_IOT(user)
 % RIGDIR        - where the base data is stored
 % CODEDIR       - where your GitHub Repo is stored:
 %                   this function also CDs into this directrory

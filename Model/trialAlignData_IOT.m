@@ -121,8 +121,8 @@ for i = 1:length(STIM.trl)
     samplevec = samplenum(1):samplenum(end);
     
     if samplenum(end) > ns_header.MetaTags.DataPoints
-        warning('excluding data you may not have to')
-        continue
+        warning('Data from this timepoint has a larger samplenumber than the largest found in ns_header.MetaTags.Datapoints')
+%         continue
     end
     
 

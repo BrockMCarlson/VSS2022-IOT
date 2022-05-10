@@ -14,7 +14,7 @@
 clear
 close all
 
-sessionOfInterest = '211008_B_bmcBRFS001';
+sessionOfInterest = '211012_B_bmcBRFS001';
 
 %% Load in Data
 setup_IOT('BrockHome')
@@ -29,8 +29,8 @@ load(formattedFileName)
 % The goal of this file is to generate an IDX output
 IDX = obtainConditionsOfInterest(trialAlignedMUAPacket);
 
-% % %% Oh man gramm is frustrating. Can I just plot this in matlab?
-% % quickAndDirtyMatlabPlot(IDX)
+% % % %% Oh man gramm is frustrating. Can I just plot this in matlab?
+% % % quickAndDirtyMatlabPlot(IDX)
 
 
 %% Depth assignemnt

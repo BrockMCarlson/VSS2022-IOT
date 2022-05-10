@@ -7,15 +7,20 @@ This library is used to generate the figures on Brock Carlson's poster at the VS
 ## Usage - Access in the Controller Folder
 
 ```matlab
-# Look at Individual Sessions
+# 1. Plot PSD and CSD with NEV
+# Alignts to every trial's event code
 processNEV_IOT()
 
-# Create STIM, RESP, and SDF matlab outputs & format for Gramm
-preProcessNeuralData_IOT()
+# 2. create *_FD.mat in:
+        global OUTDIR_FD
+    #using:
+        preProcessNeuralData_IOT()
 
-# Plot desired comparisons with gramm
+# 3. This  does ____________________________
+visWithMatlab_IOTvsMonoca_aMUA_laminar
+
+# 4. This does _____________________________
 visWithGramm_IOT()
-
 ```
 
 ## Instructions

@@ -6,8 +6,8 @@ setup_IOT('BrockHome')
 %% Setup File(s) to read
 global RIGDIR
 cd(RIGDIR)
-cd('211008_B')
-fullFileName = 'E:\bmcBRFSsessions\211008_B\211008_B_bmcBRFS001';
+cd('211208_B')
+fullFileName = 'E:\bmcBRFSsessions\211208_B\211208_B_bmcBRFS001';
 
 
 
@@ -60,12 +60,12 @@ cd(OUTDIR_FD)
 saveFileName = strcat(OUTDIR_FD,STIM.localFileName ,'_FD.mat');
 save(saveFileName,"trialAlignedMUAPacket");
 
-%% Test - plot one line from your data (this sould access Vies)
+%% Test - plot one line from your data (this sould access Vis)
 % This is the first time we have seen BRFS photo-diode triggered data
 figure
 for sp = 1:10
     subplot(10,1,sp)
-    holder = SDF(sp,:,:);
+    holder = SDF(sp+20,:,:);
     holder2 = squeeze(holder);
     holder3 = nanmean(holder2,2);
     plot(holder3)
