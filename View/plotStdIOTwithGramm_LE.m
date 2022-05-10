@@ -1,6 +1,5 @@
 function plotStdIOTwithGramm_LE(forGramm,sdftm)
 
-close all
 %% Gramm plots for vis repeated trajectories
 clear g
 g(1,1)=gramm('x',sdftm,'y',forGramm.SDF_trials,'color',forGramm.trlLabel,...
@@ -20,8 +19,8 @@ g(3,1)=gramm('x',sdftm,'y',forGramm.SDF_trials,'color',forGramm.trlLabel,...
 g(1,1).stat_summary();
 g(2,1).stat_summary();
 g(3,1).stat_summary();
-g.axe_property('YLim',[-10 25]);
-g.axe_property('XLim',[-.15 .5]);
+g.axe_property('YLim',[-1 7]);
+g.axe_property('XLim',[-.05 .3]);
 
 
 
@@ -39,8 +38,8 @@ h(1,1)=gramm('x',sdftm,'y',forGramm.SDF_trials,'color',forGramm.trlLabel,...
 
 
 h(1,1).stat_summary();
-h.axe_property('YLim',[-10 25]);
-h.axe_property('XLim',[-.15 .5]);
+h.axe_property('YLim',[-1 6]);
+h.axe_property('XLim',[-.05 .3]);
 
 
 figure('Position',[80 516 560 420]);
@@ -147,18 +146,18 @@ k.draw();
 global OUTDIR_PLOT  
 cd(OUTDIR_PLOT)
 figNameList = {'Lam_Sus','Lam_Trans','TransVsSus','allContactLine','Lam_Line'};
-
-FolderName = strcat(OUTDIR_PLOT,'figsFrom-plotStdIOTwithGramm_LE\');   % Your destination folder
-FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
-for iFig = 1:length(FigList)
-  FigHandle = FigList(iFig);
-  FigName   = figNameList{iFig};
-  savefig(FigHandle, strcat(FolderName, FigName, '.fig'));
-  saveas(FigHandle, strcat(FolderName, FigName, '.svg'));
-
-end
-
-
+% % % 
+% % % FolderName = strcat(OUTDIR_PLOT,'figsFrom-plotStdIOTwithGramm_LE\');   % Your destination folder
+% % % FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
+% % % for iFig = 1:length(FigList)
+% % %   FigHandle = FigList(iFig);
+% % %   FigName   = figNameList{iFig};
+% % %   savefig(FigHandle, strcat(FolderName, FigName, '.fig'));
+% % %   saveas(FigHandle, strcat(FolderName, FigName, '.svg'));
+% % % 
+% % % end
+% % % 
+% % % 
 
     
 

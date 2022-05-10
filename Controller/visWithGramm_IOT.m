@@ -14,20 +14,30 @@
 clear
 close all
 
-sessionOfInterest = '211012_B_bmcBRFS001';
+fileOfInterest = {...
+'211008_B_bmcBRFS001_FD.mat';
+'211009_B_bmcBRFS002_FD.mat';
+'211027_B_bmcBRFS002_FD.mat';
+'211103_B_bmcBRFS001_FD.mat'};
+
 
 %% Load in Data
 setup_IOT('BrockHome')
 global OUTDIR_FD
 cd(OUTDIR_FD)
-formattedFileName = strcat(sessionOfInterest,'_FD.mat');
-load(formattedFileName)
+clear allData
+for rn = 1:4
+    allData{rn,1} = fileOfInterest{rn};
+    clear trialAlignedMUAPacket
+     load(fileOfInterest{rn});
+     allData{rn,2} = trialAlignedMUAPacket;
+end
 
 
 
 %% obtainConditionsOfInterest()
 % The goal of this file is to generate an IDX output
-IDX = obtainConditionsOfInterest(trialAlignedMUAPacket);
+IDX = obtainConditionsOfInterest(allData);
 
 % % % %% Oh man gramm is frustrating. Can I just plot this in matlab?
 % % % quickAndDirtyMatlabPlot(IDX)
@@ -38,9 +48,12 @@ global OUTDIR_FD
 cd(OUTDIR_FD)
 workbookFile = strcat(OUTDIR_FD,'laminarBoundaryCalculations.xlsx');
 laminarBoundaryCalculations = importDepths(workbookFile);
-depths.upperBin = [laminarBoundaryCalculations.UpperTop:1:laminarBoundaryCalculations.UpperBtm];
-depths.middleBin = [laminarBoundaryCalculations.MiddleTop:1:laminarBoundaryCalculations.MiddleBtm];
-depths.lowerBin = [laminarBoundaryCalculations.LowerTop:1:laminarBoundaryCalculations.LowerBtm];
+clear -variables depths
+for i = 1:size(allData,1)
+    depths.upperBin{i,1} =  laminarBoundaryCalculations.UpperTop(i):1:laminarBoundaryCalculations.UpperBtm(i);
+    depths.middleBin{i,1}  =  laminarBoundaryCalculations.MiddleTop(i):1:laminarBoundaryCalculations.MiddleBtm(i);
+    depths.lowerBin{i,1}  = laminarBoundaryCalculations.LowerTop(i):1:laminarBoundaryCalculations.LowerBtm(i);
+end
 
 %% formatForGrammInput
 clear forGramm
@@ -50,6 +63,7 @@ forGramm= formatForGrammInput(IDX,depths);
 
 %% plotStdIOTwithGramm
 sdftm = IDX.sdftmCrop;
+close all
 plotStdIOTwithGramm(forGramm,sdftm)
  plotStdIOTwithGramm_LE(forGramm,sdftm)
 

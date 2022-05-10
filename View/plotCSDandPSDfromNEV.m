@@ -1,22 +1,24 @@
-function plotCSDandPSDfromNEV(singleFileInfo)
+function plotCSDandPSDfromNEV(holderName,holderUseChans,holderInterpChans)
 %%
 
-BRdatafile = singleFileInfo.fullFileName{1};
+BRdatafile = holderName;
+
 extension     = 'ns2'; % THIS CODE DOES NOT DOWNSAMPLE OR FILTER DATA
 el            = 'eA';
 sortdirection = 'ascending'; %  descending (NN) or ascending (Uprobe) % new note -- BMC 211007_B descenting and ascending is a moot point because of the new channel map
 pre           = 50;
 post          = 250;
-chans = singleFileInfo.useChans{1};
+chans = FileInformationTable.useChans{1};
 
  
 flag_subtractbasline = true;
 flag_halfwaverectify = false;
 flag_interpolate = true;
-interp_chans = singleFileInfo.interpTheseChans{1};
+interp_chans = holderInterpChans;
 
-clear LFP EventCodes EventTimes DAT TM CSD CSDf corticaldepth y
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 [LFP, EventCodes, EventTimes]= getLFP(BRdatafile,extension,el,sortdirection);
 triggerpoints = EventTimes(EventCodes == 23 | EventCodes == 25 | EventCodes == 27 | EventCodes == 29| EventCodes == 31);
 if isempty(chans)

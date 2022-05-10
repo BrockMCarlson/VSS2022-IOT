@@ -14,7 +14,7 @@ for fileNumber = 1:8
      global OUTDIR_FD
      cd(OUTDIR_FD)
     % Automate file name generation
-        sessionListName = {'211008_B'; '211009_B'; '211012_B'; '211025_B'; '211027_B'; '211102_B'; '211103_B'; '211105_B'; '211208_B'; '211210_B'; '211213_B'; '211217_B'};
+        sessionListName = {'211008_B'; '211009_B'; '211012_B'; '211025_B'; '211027_B'; '211102_B'; '211103_B'; '211105_B'};
     % %     lastEvpNumber.array = {4,5,3,5,2,3,4,6,4,4,5,3};
     % %     lastEvpNumber.string = cellfun(@num2str,lastEvpNumber.array,'un',0); %turn any cell of arrays and strings into all strings
         bmcBRFSNumber.array = {1,2,1,1,2,1,1,1,1,1,1,1};
@@ -32,9 +32,8 @@ for fileNumber = 1:8
     %% Oh man gramm is frustrating. Can I just plot this in matlab?
     quickAndDirtyMatlabPlot(IDX,sessionListName{fileNumber})
 end
+
+%% View outputs
 global OUTDIR_PLOT
 cd(strcat(OUTDIR_PLOT,'figsFrom-quickAndDirtyMatlabPlot'))
-% % %% Save all the figs
-% % figNameList = {'Lam_Sus','Lam_Trans','TransVsSus','allContactLine','Lam_Line'};
-% % FolderName = strcat(OUTDIR_PLOT,'figsFrom-visWithGramm_IOT\');   % Your destination folder
-% % saveAllTheFigs(figNameList,FolderName)
+

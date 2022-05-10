@@ -8,7 +8,7 @@ This library is used to generate the figures on Brock Carlson's poster at the VS
 
 ```matlab
 # 1. Plot PSD and CSD with NEV
-# Alignts to every trial's event code
+# Align data to every trial's event code
 processNEV_IOT()
 
 # 2. create *_FD.mat in:
