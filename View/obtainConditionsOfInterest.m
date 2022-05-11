@@ -34,7 +34,7 @@ for i = 1:size(allData,1)
     %% Z-scored change from baseline
     zsSDF = (SDFcrop - blAvg) ./ (blStd);
     zsRESP = (RESP - blAvg) ./ (blStd);
-    
+%     smoothdata(zsSDF,
     
     %% Condition selection.
     % Note - you can pull out more monocular trials if needed. I did not in
@@ -42,58 +42,104 @@ for i = 1:size(allData,1)
     % distribution. Not sure if this is an issue. I could always bootstrap or
     % balance in another way. Basically, don't let a minimum number of
     % monocular presentations hold you up. 
-    %% 1. PO Left Eye 16/13
-    %Monoc PO LeftEye 
-    trls.monocular_PO_LE = ...
-        (STIM.bmcBRFSparamNum == 16 & STIM.first800 == true);
-    
-    % IOT PO LeftEye post other eye adapt with congruent image
-    trls.IOT_PO_LE = STIM.bmcBRFSparamNum == 13 &...
-        STIM.first800 == false &...
-        STIM.fullTrial == true;
-    
-    %% PO Right Eye 13/16
-    trls.monocular_PO_RE = ...
-        (STIM.bmcBRFSparamNum == 13 & STIM.first800 == true) ;
-    
-    % IOT PO LeftEye post other eye adapt with congruent image
-    trls.IOT_PO_RE = STIM.bmcBRFSparamNum == 16 &...
-        STIM.first800 == false &...
-        STIM.fullTrial == true;
-    
-    
-    %% NOP Left Eye 14/15
-    trls.monocular_NPO_LE = ...
-        (STIM.bmcBRFSparamNum == 14 & STIM.first800 == true);
-    
-    % IOT PO LeftEye post other eye adapt with congruent image
-    trls.IOT_NPO_LE = STIM.bmcBRFSparamNum == 15 &...
-        STIM.first800 == false &...
-        STIM.fullTrial == true;
-    
-    
-    %% NPO Right Eye 15/14
-    trls.monocular_NPO_RE = ...
-        (STIM.bmcBRFSparamNum == 15 & STIM.first800 == true);
-    
-    % IOT PO LeftEye post other eye adapt with congruent image
-    trls.IOT_NPO_RE = STIM.bmcBRFSparamNum == 14 &...
-        STIM.first800 == false &...
-        STIM.fullTrial == true;
+
+    eyeDominance = {'RE','LE','LE','LE'};
+    if i == 1
+         %% 1. PO Left Eye 16/13
+        %Monoc PO LeftEye 
+        trls.monocular_PO_NDE = ...
+            (STIM.bmcBRFSparamNum == 16 & STIM.first800 == true);
+        
+        % IOT PO LeftEye post other eye adapt with congruent image
+        trls.IOT_PO_NDE = STIM.bmcBRFSparamNum == 13 &...
+            STIM.first800 == false &...
+            STIM.fullTrial == true;
+        
+        %% PO Right Eye 13/16
+        trls.monocular_PO_DE = ...
+            (STIM.bmcBRFSparamNum == 13 & STIM.first800 == true) ;
+        
+        % IOT PO LeftEye post other eye adapt with congruent image
+        trls.IOT_PO_DE = STIM.bmcBRFSparamNum == 16 &...
+            STIM.first800 == false &...
+            STIM.fullTrial == true;
+        
+        
+        %% NOP Left Eye 14/15
+        trls.monocular_NPO_NDE = ...
+            (STIM.bmcBRFSparamNum == 14 & STIM.first800 == true);
+        
+        % IOT PO LeftEye post other eye adapt with congruent image
+        trls.IOT_NPO_NDE = STIM.bmcBRFSparamNum == 15 &...
+            STIM.first800 == false &...
+            STIM.fullTrial == true;
+        
+        
+        %% NPO Right Eye 15/14
+        trls.monocular_NPO_DE = ...
+            (STIM.bmcBRFSparamNum == 15 & STIM.first800 == true);
+        
+        % IOT PO LeftEye post other eye adapt with congruent image
+        trls.IOT_NPO_DE = STIM.bmcBRFSparamNum == 14 &...
+            STIM.first800 == false &...
+            STIM.fullTrial == true;
+
+
+    else 
+        %% 1. PO Left Eye 16/13
+        %Monoc PO LeftEye 
+        trls.monocular_PO_DE = ...
+            (STIM.bmcBRFSparamNum == 16 & STIM.first800 == true);
+        
+        % IOT PO LeftEye post other eye adapt with congruent image
+        trls.IOT_PO_DE = STIM.bmcBRFSparamNum == 13 &...
+            STIM.first800 == false &...
+            STIM.fullTrial == true;
+        
+        %% PO Right Eye 13/16
+        trls.monocular_PO_NDE = ...
+            (STIM.bmcBRFSparamNum == 13 & STIM.first800 == true) ;
+        
+        % IOT PO LeftEye post other eye adapt with congruent image
+        trls.IOT_PO_NDE = STIM.bmcBRFSparamNum == 16 &...
+            STIM.first800 == false &...
+            STIM.fullTrial == true;
+        
+        
+        %% NOP Left Eye 14/15
+        trls.monocular_NPO_DE = ...
+            (STIM.bmcBRFSparamNum == 14 & STIM.first800 == true);
+        
+        % IOT PO LeftEye post other eye adapt with congruent image
+        trls.IOT_NPO_DE = STIM.bmcBRFSparamNum == 15 &...
+            STIM.first800 == false &...
+            STIM.fullTrial == true;
+        
+        
+        %% NPO Right Eye 15/14
+        trls.monocular_NPO_NDE = ...
+            (STIM.bmcBRFSparamNum == 15 & STIM.first800 == true);
+        
+        % IOT PO LeftEye post other eye adapt with congruent image
+        trls.IOT_NPO_NDE = STIM.bmcBRFSparamNum == 14 &...
+            STIM.first800 == false &...
+            STIM.fullTrial == true;
+    end
     
     %% Make groupd matrix
     
+    saveConditions{i} = fieldnames(trls);
     conditions = fieldnames(trls);
-    for f = 1:length(conditions)
-        
-        trlsLogical{i,f}= trls.(conditions{f});
-        CondTrials{i,f} = find(trls.(conditions{f}));
-        CondTrialNum{i,f}  = sum(trls.(conditions{f})); 
-        % SDF is a (1xf) cell. Each cell is (ms x trls) of data. i.e. (999 x 39) double
-            condSelectSDF{i,f}    = zsSDF(:,:,trls.(conditions{f}));  
-        % RESP is a (1xf) cell. Each cell is (ms x trls) of data. i.e. (999 x 39) double
-            condSelectRESP{i,f}  = zsRESP(:,:,trls.(conditions{f}));  
-    end
+        for f = 1:length(conditions)
+            
+            CondTrials{i,f} = find(trls.(conditions{f}));
+            CondTrialNum{i,f}  = sum(trls.(conditions{f})); 
+            % SDF is a (1xf) cell. Each cell is (ms x trls) of data. i.e. (999 x 39) double
+                condSelectSDF{i,f}    = zsSDF(:,:,trls.(conditions{f}));  
+            % RESP is a (1xf) cell. Each cell is (ms x trls) of data. i.e. (999 x 39) double
+                condSelectRESP{i,f}  = zsRESP(:,:,trls.(conditions{f}));  
+        end
+
     
 
  
@@ -116,9 +162,9 @@ end
     
     % Condition info
     IDX.CondTrials = CondTrials;
+    IDX.saveConditions        = saveConditions;
     IDX.conditions        = conditions;
     IDX.CondTrialNum     = CondTrialNum;  
-    IDX.trlsLogical       = trlsLogical;
     IDX.condSelectSDF   = condSelectSDF;
     IDX.condSelectRESP  = condSelectRESP;
     IDX.SDF_avg         = SDF_avg;

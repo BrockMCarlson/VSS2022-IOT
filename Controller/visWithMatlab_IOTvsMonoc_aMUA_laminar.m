@@ -1,37 +1,55 @@
+%Matlab
 %% Manual Inputs 
 clear
-% close all
+close all
 
-% Only the first 8 files are pre-processed right now. Several days show
-% extreamly poor MUA. I will skip these sessions for now, but I think they
-% are all recoverable. Just need some de-bugging to happen in the
-% pre-processing step (after VSS).
+fileOfInterest = {...
+'211008_B_bmcBRFS001_FD.mat';
+'211009_B_bmcBRFS002_FD.mat';
+'211027_B_bmcBRFS002_FD.mat';
+'211103_B_bmcBRFS001_FD.mat'};
 
-for fileNumber = 1:8
-    close all
-    %% Load in Data
-     [RIGDIR, CODEDIR, OUTDIR_FD, OUTDIR_PLOT] = setup_IOT('BrockHome');
-     global OUTDIR_FD
-     cd(OUTDIR_FD)
-    % Automate file name generation
-        sessionListName = {'211008_B'; '211009_B'; '211012_B'; '211025_B'; '211027_B'; '211102_B'; '211103_B'; '211105_B'};
-    % %     lastEvpNumber.array = {4,5,3,5,2,3,4,6,4,4,5,3};
-    % %     lastEvpNumber.string = cellfun(@num2str,lastEvpNumber.array,'un',0); %turn any cell of arrays and strings into all strings
-        bmcBRFSNumber.array = {1,2,1,1,2,1,1,1,1,1,1,1};
-        bmcBRFSNumber.string = cellfun(@num2str,bmcBRFSNumber.array,'un',0); %turn any cell of arrays and strings into all strings
-        sessionOfInterest = strcat(OUTDIR_FD,sessionListName{fileNumber},...
-            '_bmcBRFS00',bmcBRFSNumber.string{fileNumber},'_FD.mat');
-    load(sessionOfInterest)
-    
-    
-    
-    %% obtainConditionsOfInterest()
-    % The goal of this file is to generate an IDX output
-    IDX = obtainConditionsOfInterest(trialAlignedMUAPacket);
-    
-    %% Oh man gramm is frustrating. Can I just plot this in matlab?
-    quickAndDirtyMatlabPlot(IDX,sessionListName{fileNumber})
+
+%% Load in Data
+setup_IOT('BrockHome')
+global OUTDIR_FD
+cd(OUTDIR_FD)
+clear allData
+for rn = 1:4
+    allData{rn,1} = fileOfInterest{rn};
+    clear trialAlignedMUAPacket
+     load(fileOfInterest{rn});
+     allData{rn,2} = trialAlignedMUAPacket;
 end
+
+
+
+%% obtainConditionsOfInterest()
+% The goal of this file is to generate an IDX output
+IDX = obtainConditionsOfInterest(allData);
+
+    
+% Quick matlab plot for preference assignment.
+close all
+for i = 1:4
+    figure
+    SessionAvg_PO_LE = smoothdata(nanmean(IDX.SDF_avg{i,1},1),2,'gaussian',15);
+    SessionAvg_PO_RE = smoothdata(nanmean(IDX.SDF_avg{i,3},1),2,'gaussian',15);
+    SessionAvg_NPO_LE = smoothdata(nanmean(IDX.SDF_avg{i,5},1),2,'gaussian',15);
+    SessionAvg_NPO_RE = smoothdata(nanmean(IDX.SDF_avg{i,7},1),2,'gaussian',15);
+    plot(IDX.sdftmCrop,SessionAvg_PO_LE); hold on
+    plot(IDX.sdftmCrop,SessionAvg_PO_RE); hold on
+    plot(IDX.sdftmCrop,SessionAvg_NPO_LE); hold on
+    plot(IDX.sdftmCrop,SessionAvg_NPO_RE); hold on
+    legend('SessionAvg_PO_LE','SessionAvg_PO_RE','SessionAvg_NPO_LE','SessionAvg_NPO_RE','Interpreter','none')
+    
+end
+
+
+
+% Broken...
+% % quickAndDirtyMatlabPlot(IDX_ss,sessionListName{fileNumber})
+
 
 %% View outputs
 global OUTDIR_PLOT

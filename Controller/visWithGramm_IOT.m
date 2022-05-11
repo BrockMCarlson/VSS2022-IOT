@@ -58,6 +58,7 @@ end
 %% formatForGrammInput
 clear forGramm
 forGramm= formatForGrammInput(IDX,depths);
+forJasp= formatForJaspInput(IDX,depths); %the response values need to be pre-split according to the levles you want to look across
 
 
 
