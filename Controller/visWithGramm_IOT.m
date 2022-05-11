@@ -22,8 +22,7 @@ fileOfInterest = {...
 
 
 %% Load in Data
-setup_IOT('BrockHome')
-global OUTDIR_FD
+[RIGDIR, CODEDIR, OUTDIR_FD, OUTDIR_PLOT] = setup_IOT('BrockHome');
 cd(OUTDIR_FD)
 clear allData
 for rn = 1:4
@@ -58,7 +57,7 @@ end
 %% formatForGrammInput
 clear forGramm
 forGramm= formatForGrammInput(IDX,depths);
-forJasp= formatForJaspInput(IDX,depths); %the response values need to be pre-split according to the levles you want to look across
+forJasp= formatForJaspInput(forGramm); %the response values need to be pre-split according to the levles you want to look across
 
 
 
