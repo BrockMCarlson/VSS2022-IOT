@@ -8,7 +8,7 @@ This library is used to generate the figures on Brock Carlson's poster at the VS
 
 ```matlab
 1. Plot PSD and CSD with NEV
-        Alignts to every trial's event code
+        Aligns the data to every trial's event code from the .nev - no stimulus information available
         SCRIPT: processNEV_IOT()
         OUTPUT: global OUTDIR_PLOT
 
