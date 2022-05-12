@@ -13,6 +13,9 @@ if ~any(strcmp(ext,'.gbmcBRFSgrating_di'))
     error('wrong filetype for this function')
 end
 
+if contains(filename,'211208')
+    error('update fields for deleted timestamp')
+end
 
 
 %% Initialize variables.

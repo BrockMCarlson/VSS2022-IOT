@@ -7,15 +7,22 @@ This library is used to generate the figures on Brock Carlson's poster at the VS
 ## Usage - Access in the Controller Folder
 
 ```matlab
-# Look at Individual Sessions
-processNEV_IOT()
+1. Plot PSD and CSD with NEV
+        Alignts to every trial's event code
+        SCRIPT: processNEV_IOT()
+        OUTPUT: global OUTDIR_PLOT
 
-# Create STIM, RESP, and SDF matlab outputs & format for Gramm
-preProcessNeuralData_IOT()
+ 2. Pre-process Blackrock Files into photodiode triggered and behaviorially aligned data
+        SCRIPT: preProcessNeuralData_IOT()
+        OUTPUT: global OUTDIR_FD
 
-# Plot desired comparisons with gramm
-visWithGramm_IOT()
+3. This plots smoothed aMUA data. Both for every electrode AND for each recordings pref ori / pref eye determination.
+        visWithMatlab_IOTvsMonoca_aMUA_laminar()
+        OUTPUT: global OUTDIR_PLOT
 
+# 4. This is the script to create all official figures for the VSS 2022 IOT poster
+        visWithGramm_IOT()
+        OUTPUT: global OUTDIR_PLOT
 ```
 
 ## Instructions

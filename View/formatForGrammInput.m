@@ -11,35 +11,41 @@ function forGramm = formatForGrammInput(IDX,depths)
 
 
 %% Lets do some intense cognitive work
-for d = 1:32
-    if ismember(d,depths.upperBin)
-        IDX.depthLabel(d) = 'U'; %U for upper
-    elseif ismember(d,depths.middleBin)
-        IDX.depthLabel(d) = 'M'; %M for middle
-    elseif ismember(d,depths.lowerBin)
-        IDX.depthLabel(d) = 'L'; %L for Lower
-    else 
-        IDX.depthLabel(d) = 'O'; % O for "out"
+IDX.depthLabel = [];
+for c = 1:4
+    for d = 1:32
+        if ismember(d,depths.upperBin{c})
+            IDX.depthLabel{c,d} = 'U'; %U for upper
+        elseif ismember(d,depths.middleBin{c})
+            IDX.depthLabel{c,d} = 'M'; %M for middle
+        elseif ismember(d,depths.lowerBin{c})
+            IDX.depthLabel{c,d} = 'L'; %L for Lower
+        else 
+            IDX.depthLabel{c,d} = 'O'; % O for "out"
+        end
     end
 end
+
 
 %% the table loop
 clear forGramm trlLabel depthLabel SDF_trials SDF_trials RESPbinLabel RESPbinVal
 count = 0;
-for respBinLoop = 1:2
-    for exUnit = 1:32
-        for i = 1:8
-            for j = 1:IDX.CondTrialNum(i)
-                count = count+1;
-                trlLabel{count,:}       = IDX.conditions{i};
-                depthLabel{count,:}     = IDX.depthLabel(exUnit);
-                SDF_trials{count,:}     = IDX.condSelectSDF{1,i}(exUnit,:,j);  
-                if respBinLoop == 1
-                    RESPbinLabel{count,:}   = 'Transient';
-                elseif respBinLoop == 2
-                    RESPbinLabel{count,:}   = 'Sustained';
+for rs = 1:4
+    for respBinLoop = 1:2
+        for exUnit = 1:32
+            for i = 1:8
+                for j = 1:IDX.CondTrialNum{rs,i}
+                    count = count+1;
+                    trlLabel{count,:}       = IDX.conditions{i};
+                    depthLabel{count,:}     = IDX.depthLabel{rs,exUnit};
+                    SDF_trials{count,:}     = IDX.condSelectSDF{rs,i}(exUnit,:,j);  
+                    if respBinLoop == 1
+                        RESPbinLabel{count,:}   = 'Transient';
+                    elseif respBinLoop == 2
+                        RESPbinLabel{count,:}   = 'Sustained';
+                    end
+                    RESPbinVal(count,:) = IDX.condSelectRESP{rs,i}(exUnit,respBinLoop,j);  
                 end
-                RESPbinVal(count,:) = IDX.condSelectRESP{1,i}(exUnit,respBinLoop,j);  
             end
         end
     end
