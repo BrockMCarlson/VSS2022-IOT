@@ -1,14 +1,21 @@
-%% visWithGramm_IOT
+%% visWithJASP_makeJASPoutputs
+
 % This Github release is at the controller level and is accessing 
 % sub-routines in the Viewer level. This controller interface is intended 
-% to create Gramm plots of the standard IOT comparison. Standard IOT 
-% (aka stdIOTcomp) is simply the monocular presentation of one eye compared 
-% to the same presentation after adaptation in the other eye. 
+% to create outputs to be used as inputs to JASP/.
 
-% This controller interface is intended to take in the the SDF and STIM 
-% variable outputs created in the pre-processing step. It will then format 
-% them for proper gramm inputs. Finally, the controller will interact with
-% the View directory to format and plot the figures using Gramm.
+% While I undersatand it is a bit confusing for a formatting script to be
+% contained in the Viewer and not the Model level of the MVC framework, all
+% of the functions in this script are based on the visWithGramm controller
+% level script. 
+
+% Goal of ANOVA analysis
+% 1. label each unit with its depth assignemnt - each depth gets its own
+% column
+% 2. Find the average monoc and IOT response for each unit
+% 3. Take the delta between monoc - IOT for each unit. This value of the
+% plotted value
+
 
 %% Manual Inputs 
 clear
@@ -54,19 +61,11 @@ for i = 1:size(allData,1)
     depths.lowerBin{i,1}  = laminarBoundaryCalculations.LowerTop(i):1:laminarBoundaryCalculations.LowerBtm(i);
 end
 
-%% formatForGrammInput
-clear forGramm
-forGramm= formatForGrammInput(IDX,depths);
+%%
+DeltaForJASP = formatJASPDeltaOutputs(IDX,depths);
 
 
-
-
-%% plotStdIOTwithGramm
-sdftm = IDX.sdftmCrop;
-close all
-plotStdIOTwithGramm(forGramm,sdftm)
- plotStdIOTwithGramm_LE(forGramm,sdftm)
-
+writetable(DeltaForJASP,'DeltaForJASP.csv');
 
 
 
@@ -93,3 +92,6 @@ plotStdIOTwithGramm(forGramm,sdftm)
 % 18    'Monoc Alt IC Adapted. PO LeftEye adapting - NPO RightEye alternat monoc presentation',... 
 % 19    'Monoc Alt IC Adapted. PO RightEye adapting - NPO LeftEye alternat monoc presentation',... 
 % 20    'Monoc Alt IC Adapted. NPO LeftEye adapting - PO RightEye alternat monoc presentation',... 
+
+
+

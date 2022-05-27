@@ -149,10 +149,11 @@ for i = 1:size(allData,1)
     clear cond
     for cond = 1:size(conditions,1)
         SDF_avg{i,cond}  = mean(condSelectSDF{i,cond},3);
-        RESP_avg{i,cond}= mean(condSelectRESP{i,cond}(:,1,:),3);
+        RESP_avg{i,cond}= mean(condSelectRESP{i,cond}(:,:,:),3);
     end
 
-
+    %% Get Monoc - IOT delta
+    condDelta{i,1} = RESP_avg{i,1} - RESP_avg{i,2};
 
 
 end
@@ -172,6 +173,7 @@ end
     IDX.trls            = trls;
     IDX.sdftmCrop       = sdftmCrop;
     IDX.win_ms          = win_ms;
+    IDX.condDelta       = condDelta;
 
     
 end

@@ -12,14 +12,23 @@ function forGramm = formatForGrammInput(IDX,depths)
 
 %% Lets do some intense cognitive work
 IDX.depthLabel = [];
+count_U = 0;
+count_M = 0;
+count_D = 0;
 for c = 1:4
     for d = 1:32
         if ismember(d,depths.upperBin{c})
             IDX.depthLabel{c,d} = 'U'; %U for upper
+            count_U = count_U +1;
+            delta.U(count_U) = IDX.condDelta{c}(d,2); % c gets you to the penetration number, de gets you to the electrode number, and '2' gets you the sustained reponse
         elseif ismember(d,depths.middleBin{c})
             IDX.depthLabel{c,d} = 'M'; %M for middle
+            count_M = count_M +1;
+            delta.M(count_M) = IDX.condDelta{c}(d,2); % c gets you to the penetration number, de gets you to the electrode number, and '2' gets you the sustained reponse
         elseif ismember(d,depths.lowerBin{c})
             IDX.depthLabel{c,d} = 'L'; %L for Lower
+            count_D = count_D +1;
+            delta.D(count_D) = IDX.condDelta{c}(d,2); % c gets you to the penetration number, de gets you to the electrode number, and '2' gets you the sustained reponse
         else 
             IDX.depthLabel{c,d} = 'O'; % O for "out"
         end
@@ -57,6 +66,7 @@ structForGramm.depthLabel = depthLabel;
 structForGramm.SDF_trials = SDF_trials;
 structForGramm.RESPbinLabel = RESPbinLabel;
 structForGramm.RESPbinVal = RESPbinVal;
+DeltaForJASP = delta;
 
 
 end

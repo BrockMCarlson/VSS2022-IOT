@@ -13,7 +13,7 @@ global RIGDIR CODEDIR OUTDIR_FD OUTDIR_PLOT
         case {'BrockWork'}
             RIGDIR      = 'E:\bmcBRFSsessions\';
             CODEDIR     = 'C:\Users\Brock\Documents\MATLAB\GitHub\VSS2022-IOT\';
-            OUTDIR_FD   = 'E:\formattedDataOutputs\';
+            OUTDIR_FD   = 'C:\Users\Brock\Documents\MATLAB\formattedDataOutputs\';
             OUTDIR_PLOT = 'E:\plotData\';
 
         case {'BrockHome'}
@@ -30,5 +30,5 @@ end
 
 % cd(RIGDIR)
 % cd(CODEDIR)
-% cd(OUTDIR_FD)
+% ○
 % cd(OUTDIR_PLOT)
