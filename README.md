@@ -48,7 +48,7 @@ This library is used to generate the figures on Brock Carlson's poster at the VS
 ## Instructions
 VSS2022-IOT Is built on a Model-Viewer-Control (MVC) framework. This design choice allows for the development of deeper classes and defined layers of abstraction. I am a self-taught dev, so these principals are incorrectly implemented or could be improved please let me know! 
 
-The intention is that each script in the “controller” folder acts as the interface for a class, i.e. users will only need to understand and interact with scripts in tue controller folder fully utilize this repos functionality. 
+The intention is that each script in the “controller” folder acts as the interface for a class, i.e. users will only need to understand and interact with scripts in the controller folder in order to fully utilize this respository's functionality. 
 
 ### “Model” 
 
