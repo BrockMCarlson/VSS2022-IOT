@@ -4,7 +4,13 @@ VSS2022-IOT is a Matlab library of code used to analyze the Interocular Transfer
 This library is used to generate the figures on Brock Carlson's poster at the VSS 2022 Annual Meeting
 
 
-## Usage - Access in the Controller Folder
+## Usage 
+1. Inputs: {.nev, .ns2, .ns6, .bhv}. These files are stored under RIGDIR
+2. Setup_IOT: you must establish your home directories for RIGDIR, CODEDIR, OUTDIR_FD, and OUTDIR_PLOT
+4. Controller: A_processNEV B_preProcessNeuralData C_visWithMatlab D_visWithGramm
+
+
+## Full controller interface description
 
 ```matlab
 1. Plot PSD and CSD with NEV
