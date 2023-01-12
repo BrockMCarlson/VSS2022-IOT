@@ -143,20 +143,20 @@ k.draw();
 
 
 %% Save all the figs
-global OUTDIR_PLOT  
-cd(OUTDIR_PLOT)
-figNameList = {'Lam_Sus','Lam_Trans','TransVsSus','allContactLine','Lam_Line'};
-
-FolderName = strcat(OUTDIR_PLOT,'figsFrom-plotStdIOTwithGramm_LE\');   % Your destination folder
-cd(FolderName)
-FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
-for iFig = 1:length(FigList)
-  FigHandle = FigList(iFig);
-  FigName   = figNameList{iFig};
-  savefig(FigHandle, strcat(FolderName, FigName, '.fig'));
-  saveas(FigHandle, strcat(FolderName, FigName, '.svg'));
-
-end
+% % global OUTDIR_PLOT  
+% % cd(OUTDIR_PLOT)
+% % figNameList = {'Lam_Sus','Lam_Trans','TransVsSus','allContactLine','Lam_Line'};
+% % 
+% % FolderName = strcat(OUTDIR_PLOT,'figsFrom-plotStdIOTwithGramm_LE\');   % Your destination folder
+% % cd(FolderName)
+% % FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
+% % for iFig = 1:length(FigList)
+% %   FigHandle = FigList(iFig);
+% %   FigName   = figNameList{iFig};
+% %   savefig(FigHandle, strcat(FolderName, FigName, '.fig'));
+% %   saveas(FigHandle, strcat(FolderName, FigName, '.svg'));
+% % 
+% % end
 
 
 

@@ -42,7 +42,7 @@ cd(drname);
 
 % check if file exist and load NEV w/o spiking data
 if nargout > 1
-    if exist(strcat(filename,'.nev'),'file') == 2;
+    if exist(strcat(filename,'.nev'),'file') == 2
         NEV = openNEV(strcat(filename,'.nev'),'nomat','nosave');
     else
         error('the following file does not exist\n%s.nev',filename);
@@ -60,6 +60,7 @@ end
 
 % Read in NS Header
 NS_Header = openNSx(strcat(filename,'.',extension),'noread');
+
 % get basic info about recorded data
 neural = strcmp({NS_Header.ElectrodesInfo.ConnectorBank},el(2));
 N.neural = sum( neural);

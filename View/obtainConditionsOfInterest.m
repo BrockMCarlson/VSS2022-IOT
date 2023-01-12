@@ -17,11 +17,15 @@ for i = 1:size(allData,1)
         sdftm   = trialAlignedMUAPacket.sdftm;
         STIM    = trialAlignedMUAPacket.STIM;
         clear trialAlignedMUAPacket 
+
+   %% Smooth Data
+    SDFsmooth = smoothdata(SDF,2,'sgolay',20);
+        
     
     
     %% Crop SDF to .8 sec
         tpFor800 = find(sdftm == .8);
-        SDFcrop = SDF(:,1:tpFor800,:);
+        SDFcrop = SDFsmooth(:,1:tpFor800,:);
         sdftmCrop = sdftm(1:tpFor800);
     
     %% baseline correct values

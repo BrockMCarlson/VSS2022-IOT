@@ -57,7 +57,7 @@ end
 %% formatForGrammInput
 clear forGramm
 forGramm= formatForGrammInput(IDX,depths);
-forJasp= formatForJaspInput(forGramm); %the response values need to be pre-split according to the levles you want to look across
+forJasp= formatForJASPInput(forGramm); %the response values need to be pre-split according to the levles you want to look across
 
 
 
@@ -65,7 +65,7 @@ forJasp= formatForJaspInput(forGramm); %the response values need to be pre-split
 sdftm = IDX.sdftmCrop;
 close all
 plotStdIOTwithGramm(forGramm,sdftm)
- plotStdIOTwithGramm_LE(forGramm,sdftm)
+%  plotStdIOTwithGramm_LE(forGramm,sdftm)
 
 
 

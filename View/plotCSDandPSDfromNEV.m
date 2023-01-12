@@ -4,11 +4,11 @@ function plotCSDandPSDfromNEV(holderName,holderUseChans,holderInterpChans)
 BRdatafile = holderName;
 
 extension     = 'ns2'; % THIS CODE DOES NOT DOWNSAMPLE OR FILTER DATA
-el            = 'eA';
+el            = 'eD';
 sortdirection = 'ascending'; %  descending (NN) or ascending (Uprobe) % new note -- BMC 211007_B descenting and ascending is a moot point because of the new channel map
 pre           = 50;
 post          = 250;
-chans = FileInformationTable.useChans{1};
+chans = holderUseChans;
 
  
 flag_subtractbasline = true;
@@ -59,7 +59,7 @@ if flag_halfwaverectify
 end
 figure
 subplot(1,6,1)
-f_ShadedLinePlotbyDepth(CSD,corticaldepth,TM,[],1)
+f_ShadedLinePlotbyDepth(EVP,corticaldepth,TM,[],1)
 sgtitle(BRdatafile,'interpreter','none')
 %%
 
@@ -237,8 +237,12 @@ jnmrm(badchan,:) = NaN;
 
 normpowAB = jnmrm(:,:) ./ nanmax(jnmrm(:,:), [], 1);
 
+%Apply spatial filter to PSD
+PSDf = filterCSD(normpowAB);
+
+% Plot PSD
 subplot(1,6,[4 5]);
-imagesc(normpowAB(:,1:100))
+imagesc(PSDf(:,1:100))
 
 psdAx = gca;
 colormap(psdAx,'Jet')
